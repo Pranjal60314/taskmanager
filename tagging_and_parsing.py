@@ -3,7 +3,6 @@ import json
 import datetime
 import re
 import helpmodules as hp
-import emotional_filing_for_introspection as ei
 
 today = datetime.date.today()
 task_file = "taskpending.json"
@@ -16,7 +15,7 @@ def save_tasks(tasks):
     with open(task_file, "w") as f:
         json.dump(tasks, f, indent=2)
 
-def tag_parser(entry):
+def tag_parser(entry):#for tags to be seen @tag( ...content... ) needs to be used
     if not entry:
         hp.slow_print("No tags found.")
         return
@@ -33,13 +32,7 @@ def tag_parser(entry):
             tasks.append(task)
             save_tasks(tasks)
             hp.slow_print(f"[Task] {task_id}: {content}")
-        elif tag == "emotions":
-            hp.slow_print(f"[Emotion Logged]: {content}")
-            emotions=ei.parse_emotion_tag(content)
-            primary_emo=emotions[0]
-            secondary_emo=emotions[1]
-            ei.log_new_entry(primary_emo,secondary_emo)
-        else:
+         else:
             hp.slow_print(f"[{tag.capitalize()}] {content}")
 
 def add_task():

@@ -1,6 +1,6 @@
 import tagging_and_parsing_new as tp
 import helpmodules as hp
-
+hp.ensure_setup()
 hp.slow_print("What would you like to do")
 
 command=input(" (view/add/remove/tag): ").strip().lower()

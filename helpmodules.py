@@ -10,38 +10,15 @@ import python_keys as pk
 #to ensure the files exist in a new setup 
 def ensure_setup():
     #data setup
-    required_dirs = ["diary_entries"]#files=directories
-    required_files = ["notes.txt", "id_counter.txt", "taskpending.json","python_keys.json"]#txt or json files
-
-    for directory in required_dirs:
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-
     if not os.path.exists("taskpending.json"):
         with open("taskpending.json", "w") as f:
-            f.write("[]")
-    
-    if not os.path.exists("python_keys.json"):
-        with open("python_keys.json", "w") as f:
-            f.write("[]")
-
-    if not os.path.exists("emotion_log.json"):
-        with open("emotion_log.json", "w") as f:
-            f.write("[]")
-
-    if not os.path.exists("expenditure.json"):
-        with open("expenditure.json", "w") as f:
-            f.write("{}")
-
-    
+            f.write("[]") 
 
     if not os.path.exists("id_counter.txt"):
         with open("id_counter.txt", "w") as f:
             f.write("0")
     
-    if not os.path.exists("id_counter_python.txt"):
-        with open("id_counter_python.txt", "w") as f:
-            f.write("0")
+   
 
 
 def write_json(filename,data):

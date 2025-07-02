@@ -22,3 +22,8 @@ TaskManager plays well with LifeOS: while you talk into the digital void of your
 This isn't just a todo list — it's your **quiet backend companion**, logging your battles while you keep moving forward.
 
 
+
+License
+While this repository is open to view, it is not open-source licensed.
+If you'd like to use or build upon it, please reach out — I’d love to hear how you're using it!
+

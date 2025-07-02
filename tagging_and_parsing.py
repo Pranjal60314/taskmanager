@@ -1,8 +1,8 @@
-
 import json
 import datetime
 import re
 import helpmodules as hp
+import emotional_filing_for_introspection as ei
 
 today = datetime.date.today()
 task_file = "taskpending.json"
@@ -15,7 +15,7 @@ def save_tasks(tasks):
     with open(task_file, "w") as f:
         json.dump(tasks, f, indent=2)
 
-def tag_parser(entry):#for tags to be seen @tag( ...content... ) needs to be used
+def tag_parser(entry):
     if not entry:
         hp.slow_print("No tags found.")
         return
@@ -32,19 +32,28 @@ def tag_parser(entry):#for tags to be seen @tag( ...content... ) needs to be use
             tasks.append(task)
             save_tasks(tasks)
             hp.slow_print(f"[Task] {task_id}: {content}")
-         else:
+        elif tag == "emotions":
+            hp.slow_print(f"[Emotion Logged]: {content}")
+            emotions=ei.parse_emotion_tag(content)
+            primary_emo=emotions[0]
+            secondary_emo=emotions[1]
+            ei.log_new_entry(primary_emo,secondary_emo)
+        else:
             hp.slow_print(f"[{tag.capitalize()}] {content}")
 
 def add_task():
-    content = input("Enter task: ").strip()
-    if content:
-        task_id = hp.get_next_id()
-        tasks = load_tasks()
-        tasks.append({"id": task_id, "task": content, "tag": "UN", "due": None})
-        save_tasks(tasks)
-        hp.slow_print(f"Task added with ID {task_id}")
-    else:
-        hp.slow_print("Empty task not added.")
+    content = input("Enter task: ").strip().split(",")
+    for t in content:
+        if content:
+            task_id= hp.get_next_id()
+            tasks = load_tasks()
+            tasks.append({"id": task_id, "task": content, "tag": "UN", "due": None})
+            save_tasks(tasks)
+            hp.slow_print(f"Task added with ID {task_id}")
+        else:
+            hp.slow_print("Empty task not added.")
+
+    
 
 def remove_task(task_id_to_remove):
     tasks = load_tasks()
